@@ -1,0 +1,5 @@
+---
+- hosts: workstation
+  become: true
+  roles:
+    - nvidia.nvidia_docker

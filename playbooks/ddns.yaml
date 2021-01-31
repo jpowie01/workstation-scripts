@@ -1,0 +1,23 @@
+---
+- hosts: workstation
+  become: true
+  tasks:
+    - name: Prepare placeholder for Dynamic DNS scripts
+      file:
+        path: /etc/ddns
+        state: directory
+        mode: "0755"
+
+    - name: Copy Dynamic DNS update script
+      template:
+        src: ../configs/ddns.sh
+        dest: /etc/ddns/ddns.sh
+        owner: root
+        group: root
+        mode: 700
+
+    - name: Add update script to CRON
+      cron:
+        name: Dynamic DNS
+        minute: "*/5"
+        job: "/etc/ddns/ddns.sh >/dev/null 2>&1"

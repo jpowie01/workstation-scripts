@@ -1,0 +1,67 @@
+---
+- hosts: workstation
+  become: true
+  tasks:
+    - name: Update apt-cache
+      apt:
+        update_cache: yes
+
+    - name: Install required packages
+      apt:
+        name:
+          - apt-transport-https
+          - ca-certificates
+          - curl
+          - gnupg-agent
+          - software-properties-common
+
+    - name: Add Docker GPG key
+      apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        state: present
+
+    - name: Get LSB Release
+      command: lsb_release -cs
+      register: lsb_release
+
+    - name: Add repository with Docker
+      apt_repository:
+        repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ lsb_release.stdout }} stable
+
+    - name: Update apt-cache
+      apt:
+        update_cache: yes
+
+    - name: Install Docker
+      apt:
+        name:
+          - docker-ce
+          - docker-ce-cli
+          - containerd.io
+        state: latest 
+
+    - name: Get user name
+      command: whoami
+      become: false
+      register: whoami
+
+    - name: Add user to Docker group
+      user:
+        name: "{{ whoami.stdout }}"
+        groups: docker
+        append: yes
+
+    - name: Get kernel name
+      command: uname -s
+      register: kernel_name
+
+    - name: Get machine
+      command: uname -m
+      register: machine
+
+    - name: Download Docker-Compose installation script
+      get_url:
+        url: "https://github.com/docker/compose/releases/download/1.28.2/docker-compose-{{ kernel_name.stdout }}-{{ machine.stdout }}"
+        dest: /usr/local/bin/docker-compose
+        mode: "0755"
+        force: yes

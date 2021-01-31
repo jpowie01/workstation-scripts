@@ -1,0 +1,78 @@
+---
+- hosts: workstation
+  become: true
+  tasks:
+    - name: Disable remote login for root
+      lineinfile:
+        path: /etc/ssh/sshd_config
+        state: present
+        regexp: '^#?PermitRootLogin'
+        line: 'PermitRootLogin prohibit-password'
+
+    - name: Disable password authentication 
+      lineinfile:
+        path: /etc/ssh/sshd_config
+        state: present
+        regexp: '^PasswordAuthentication'
+        line: 'PasswordAuthentication no'
+
+    - name: Enable only key authentication
+      lineinfile:
+        path: /etc/ssh/sshd_config
+        state: present
+        regexp: '^#?PubkeyAuthentication'
+        line: 'PubkeyAuthentication yes'
+
+    - name: Disable PAM
+      lineinfile:
+        path: /etc/ssh/sshd_config
+        state: present
+        regexp: '^UsePAM'
+        line: 'UsePAM no'
+
+    - name: Get user name
+      become: false
+      command: whoami
+      register: whoami
+
+    - name: Allow only me to access this machine through SSH
+      lineinfile:
+        path: /etc/ssh/sshd_config
+        line: AllowUsers {{ whoami.stdout }}
+        create: yes
+
+    - name: Protect against brute force attacks
+      shell: iptables -I INPUT -p tcp --dport 22 -i eth0 -m state --state NEW -m recent --set
+
+    - name: Protect against brute force attacks
+      shell: iptables -I INPUT -p tcp --dport 22 -i eth0 -m state --state NEW -m recent --update --seconds 60 --hitcount 4 -j DROP
+
+    - name: Install Fail2Ban
+      apt:
+        name: fail2ban
+
+    - name: Configure Fail2Ban
+      template:
+        src: ../configs/fail2ban.conf
+        dest: /etc/fail2ban/jail.local
+
+    - name: Enable and Start Fail2Ban service
+      service:
+        name: fail2ban
+        enabled: yes
+        state: started
+
+    - name: Allow incoming traffic to SSH server
+      ufw:
+        rule: allow
+        port: 22
+        proto: tcp
+
+    - name: Apply changes traffic to VPN
+      ufw:
+        state: enabled
+
+    - name: Restart SSH service
+      service:
+        name: ssh
+        state: restarted
