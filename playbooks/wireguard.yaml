@@ -18,23 +18,23 @@
 
     - name: Read server private key
       command: cat /etc/wireguard/server_privatekey
-      register: wireshark_server_privatekey
+      register: wireguard_server_privatekey
 
     - name: Read server public key
       command: cat /etc/wireguard/server_publickey
-      register: wireshark_server_publickey
+      register: wireguard_server_publickey
 
     - name: Read client private key
       command: cat /etc/wireguard/client_privatekey
-      register: wireshark_client_privatekey
+      register: wireguard_client_privatekey
 
     - name: Read client public key
       command: cat /etc/wireguard/client_publickey
-      register: wireshark_client_publickey
+      register: wireguard_client_publickey
 
     - name: Copy configuration file and fill it with generated private key
       template:
-        src: ../configs/wireshark_server.conf
+        src: ../configs/wireguard_server.conf
         dest: /etc/wireguard/wg0.conf
         owner: root
         group: root
@@ -44,8 +44,8 @@
       become: false
       delegate_to: localhost
       template:
-        src: ../configs/wireshark_client.conf
-        dest: ../wireshark_client.conf
+        src: ../configs/wireguard_client.conf
+        dest: ../wireguard_client.conf
 
     - name: Allow for IPv4 forwarding
       sysctl:

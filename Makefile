@@ -36,5 +36,5 @@ initial_setup:
 	ansible-playbook -i inventory.yaml playbooks/nvidia-docker.yaml -vvv
 	ansible-playbook -i inventory.yaml playbooks/ddns.yaml -vvv
 
-	# Wireshark is still in development...
+	# WireGuard is still in development...
 	# ansible-playbook -i inventory.yaml playbooks/wireguard.yaml -vvv
