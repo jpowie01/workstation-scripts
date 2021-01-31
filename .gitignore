@@ -221,4 +221,4 @@ pip-selfcheck.json
 inventory.yaml
 
 # (01/30/2020) Do not store output Wireshark Client configuration file
-wireshark_client.conf
+/wireguard_client.conf
