@@ -66,26 +66,23 @@ $ vagrant destroy
 
 To allow for workstation provisioning, prepare your local environment with Ansible.
 
-1. Create Python virtual environment, activate it and install all packages:
+1. Create Python virtual environment with all required packages:
 
 ```bash
-$ make venv
-$ . .venv/bin/activate
-(.venv) $ make install_packages
-(.venv) $ ansible-galaxy install nvidia.nvidia_driver nvidia.nvidia_docker
+$ make devenv
 ```
 
 2. Prepare your inventory file (default one works fine with Vagrant machine):
 
 ```bash
-(.venv) $ make inventory
-(.venv) $ vim inventory.yaml
+$ make inventory
+$ vim inventory.yaml
 ```
 
 3. Test your connection to the workstation:
 
 ```bash
-(.venv) $ make test_connection
+$ make test_connection
 ```
 
 And now, you're good to go!
@@ -95,6 +92,6 @@ And now, you're good to go!
 To do the initial setup of workstation, use Makefile entrypoint that runs prepared Ansible Playbooks:
 
 ```bash
-(.venv) $ make initial_setup
+$ make initial_setup
 ```
 
