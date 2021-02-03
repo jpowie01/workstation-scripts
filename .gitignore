@@ -218,7 +218,7 @@ pip-selfcheck.json
 #
 
 # (01/24/2020) Inventory for my local hardware
-inventory.yaml
+/inventory.yaml
 
 # (01/30/2020) Do not store output WireGuard Client configuration file
 /wireguard_client.conf
