@@ -1,6 +1,6 @@
 # Workstation management scripts
 
-Collection of scripts that automates management of my GPU Workstation machine.
+Collection of scripts that automates management of my GPU Workstation.
 
 ## A few words about my use case...
 
@@ -20,6 +20,19 @@ My GPU Workstation has:
 - storage based on NVMe Gen4.
 
 I use MacBook Pro for daily use, main development and access to the Workstation.
+
+### What have I done?
+
+This repository contains Ansible Playbooks that manage:
+ - Nvidia Drivers with CUDA support and utilities,
+ - Docker with Docker-Compose and Nvidia support,
+ - SSH server with additional protection against potential attacks,
+ - Dynamic DNS through DuckDNS service, so that I will be able to access my workstation remotely
+   without needs for static IP from my ISP,
+ - ZSH with my preferred setup,
+ - various APT packages that I use on a daily basis (Python, VIM, etc.).
+
+I still have to work on VPN configuration, so that I will be protected on additional level.
 
 ## Prerequisites
 
