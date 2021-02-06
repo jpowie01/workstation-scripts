@@ -25,7 +25,9 @@ install_packages:
 # Ansible
 #
 
-.PHONY: inventory test_connection initial_setup
+.PHONY: inventory test_connection provision provision_packages provision_nvidia provision_zsh \
+	    provision_vim provision_ssh provision_docker provision_nvidia_docker provision_ddns \
+		provision_wireguard
 
 inventory:
 	cp examples/inventory.yaml inventory.yaml
@@ -33,15 +35,33 @@ inventory:
 test_connection:
 	$(ANSIBLE) workstation -i inventory.yaml -m ping
 
-initial_setup:
+provision: provision_packages provision_nvidia provision_zsh provision_vim provision_ssh \
+	       provision_docker provision_nvidia_docker provision_ddns provision_wireguard
+
+provision_packages:
 	$(ANSIBLE_PLAYBOOK) -i inventory.yaml playbooks/packages.yaml -vvv
+
+provision_nvidia:
 	$(ANSIBLE_PLAYBOOK) -i inventory.yaml playbooks/nvidia.yaml -vvv
+
+provision_zsh:
 	$(ANSIBLE_PLAYBOOK) -i inventory.yaml playbooks/zsh.yaml -vvv
+
+provision_vim:
 	$(ANSIBLE_PLAYBOOK) -i inventory.yaml playbooks/vim.yaml -vvv
+
+provision_ssh:
 	$(ANSIBLE_PLAYBOOK) -i inventory.yaml playbooks/ssh.yaml -vvv
+
+provision_docker:
 	$(ANSIBLE_PLAYBOOK) -i inventory.yaml playbooks/docker.yaml -vvv
+
+provision_nvidia_docker:
 	$(ANSIBLE_PLAYBOOK) -i inventory.yaml playbooks/nvidia-docker.yaml -vvv
+
+provision_ddns:
 	$(ANSIBLE_PLAYBOOK) -i inventory.yaml playbooks/ddns.yaml -vvv
 
-	# WireGuard is still in development...
+provision_wireguard:
+	echo "WireGuard is still in development..."
 	# $(ANSIBLE_PLAYBOOK) -i inventory.yaml playbooks/wireguard.yaml -vvv
