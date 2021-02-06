@@ -37,6 +37,7 @@ initial_setup:
 	$(ANSIBLE_PLAYBOOK) -i inventory.yaml playbooks/packages.yaml -vvv
 	$(ANSIBLE_PLAYBOOK) -i inventory.yaml playbooks/nvidia.yaml -vvv
 	$(ANSIBLE_PLAYBOOK) -i inventory.yaml playbooks/zsh.yaml -vvv
+	$(ANSIBLE_PLAYBOOK) -i inventory.yaml playbooks/vim.yaml -vvv
 	$(ANSIBLE_PLAYBOOK) -i inventory.yaml playbooks/ssh.yaml -vvv
 	$(ANSIBLE_PLAYBOOK) -i inventory.yaml playbooks/docker.yaml -vvv
 	$(ANSIBLE_PLAYBOOK) -i inventory.yaml playbooks/nvidia-docker.yaml -vvv
