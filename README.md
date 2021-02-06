@@ -108,3 +108,33 @@ To do the initial setup of workstation, use Makefile entrypoint that runs prepar
 $ make initial_setup
 ```
 
+## Easier access to Workstation
+
+### SSH Config
+
+I like to simplify access to remote machines by adding them to my `~/.ssh/config`:
+
+```
+Host workstation
+    HostName LOCAL_IP_ADDRESS
+    User USERNAME
+    Port 22
+    IdentityFile ~/.ssh/workstation.key
+```
+
+Thanks to that, I can access them with:
+
+```bash
+$ ssh workstation
+```
+
+### SSH File System (SSHFS)
+
+Accessing, copying and viewing multiple files on a remote machine may slow down work significatly.
+ To speed up my workflow, I set up SSHFS on my notebook that allows me to access remote file
+ system through SSH tunnel:
+
+```bash
+$ sudo mkdir /Volumes/Workstation
+$ sudo sshfs workstation:~ /Volumes/Workstation -o Workstation
+```
