@@ -120,6 +120,13 @@ Host workstation
     User USERNAME
     Port 22
     IdentityFile ~/.ssh/workstation.key
+
+Host workstation_with_mlflow
+    HostName LOCAL_IP_ADDRESS
+    User USERNAME
+    Port 22
+    LocalForward 5000 localhost:5000
+    IdentityFile ~/.ssh/workstation.key
 ```
 
 Thanks to that, I can access them with:
