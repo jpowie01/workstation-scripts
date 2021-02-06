@@ -23,6 +23,13 @@
         regexp: '^#?PubkeyAuthentication'
         line: 'PubkeyAuthentication yes'
 
+    - name: Enable local port forwarding
+      lineinfile:
+        path: /etc/ssh/sshd_config
+        state: present
+        regexp: '^#?AllowTcpForwarding'
+        line: 'AllowTcpForwarding local'
+
     - name: Disable PAM
       lineinfile:
         path: /etc/ssh/sshd_config
