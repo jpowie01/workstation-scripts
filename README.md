@@ -102,10 +102,10 @@ And now, you're good to go!
 
 ## Provisioning
 
-To do the initial setup of workstation, use Makefile entrypoint that runs prepared Ansible Playbooks:
+To provision the Workstation, use Makefile entrypoint that runs prepared Ansible Playbooks:
 
 ```bash
-$ make initial_setup
+$ make provision
 ```
 
 ## Easier access to Workstation
