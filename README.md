@@ -39,6 +39,7 @@ I still have to work on VPN configuration, so that I will be protected on additi
 1. Install Ubuntu Server 20.04.1 LTS on fresh disk.
 2. Create user with your preferred name.
 3. Assign static IP that matches your network topology.
+4. During (or after) installation configure proper public key for SSH access.
 
 Do nothing more than that. Everything else is automated with Ansible.
 
