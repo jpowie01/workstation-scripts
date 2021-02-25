@@ -20,7 +20,7 @@
         cmd: bash ./install.run -s --add-this-kernel
         chdir: /tmp/nvidia
 
-    - name: Enable NVidia Persistenced Mode
+    - name: Enable NVidia driver Persistenced Mode
       become: true
       ignore_errors: yes  # GPU may not be available at the time of installation (eg. in Vagrant VM)
       shell:
