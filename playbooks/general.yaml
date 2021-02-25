@@ -17,6 +17,7 @@
           - vim
           - git
           - curl
+          - lm-sensors
           - python3.6
           - python3.7
           - python3.8
@@ -25,3 +26,23 @@
           - python3-venv
           - python3-virtualenv
         state: latest
+
+    - name: Disable sleep
+      systemd:
+        name: sleep.target
+        masked: yes
+
+    - name: Disable suspend
+      systemd:
+        name: suspend.target
+        masked: yes
+
+    - name: Disable hibernate.target
+      systemd:
+        name: hibernate.target
+        masked: yes
+
+    - name: Disable hybrid sleep
+      systemd:
+        name: hybrid-sleep.target
+        masked: yes

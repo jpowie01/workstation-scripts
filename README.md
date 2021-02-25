@@ -37,20 +37,8 @@ I still have to work on VPN configuration, so that I will be protected on additi
 ## Prerequisites
 
 1. Install Ubuntu Server 20.04.1 LTS on fresh disk.
-2. Create user with your preferred name and add it to sudoers:
-
-```bash
-$ adduser <USERNAME>
-$ usermod -aG sudo <USERNAME>
-```
-
-3. Add your public SSH key to newly created account:
-
-```bash
-$ scp ~/.ssh/id_rsa.pub <USERNAME>@<WORKSTATION_IP>:/tmp/key.pub
-$ ssh <USERNAME>@<WORKSTATION_IP>
-$ cat /tmp/key.pub >> ~/.ssh/authorized_keys
-```
+2. Create user with your preferred name.
+3. Assign static IP that matches your network topology.
 
 Do nothing more than that. Everything else is automated with Ansible.
 

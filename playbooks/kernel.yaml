@@ -1,0 +1,16 @@
+---
+- hosts: workstation
+  become: true
+  tasks:
+    - name: Update apt-cache
+      apt:
+        update_cache: yes
+
+    - name: Install latest Linux kernel that is supported by Nvidia Drivers
+      apt:
+        name:
+          - linux-image-5.10.0-1014-oem
+          - linux-headers-5.10.0-1014-oem
+
+    - name: Reboot
+      reboot:

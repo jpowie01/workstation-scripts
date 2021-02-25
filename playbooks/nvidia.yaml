@@ -1,9 +1,27 @@
 ---
 - hosts: workstation
-  become: true
-  roles:
-    - role: nvidia.nvidia_driver
-      vars:
-        nvidia_driver_ubuntu_install_from_cuda_repo: yes
-        nvidia_driver_ubuntu_branch: "460"
-        nvidia_driver_ubuntu_packages: ["nvidia-headless-460-server", "nvidia-headless-460-utils"]
+  tasks:
+    - name: Prepare placeholder for NVidia drivers installer
+      file:
+        path: /tmp/nvidia
+        state: directory
+        mode: "0755"
+
+    - name: Download latest possible NVidia drivers
+      get_url:
+        url: "https://us.download.nvidia.com/XFree86/Linux-x86_64/460.39/NVIDIA-Linux-x86_64-460.39.run"
+        dest: /tmp/nvidia/install.run
+        mode: "0755"
+        force: yes
+
+    - name: Install NVidia drivers
+      become: true
+      shell:
+        cmd: bash ./install.run -s --add-this-kernel
+        chdir: /tmp/nvidia
+
+    - name: Enable NVidia driver Persistenced Mode
+      become: true
+      ignore_errors: yes  # GPU may not be available at the time of installation (eg. in Vagrant VM)
+      shell:
+        cmd: nvidia-smi -pm 1
