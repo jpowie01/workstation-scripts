@@ -75,9 +75,21 @@
         port: 22
         proto: tcp
 
-    - name: Apply changes traffic to VPN
+    - name: Apply changes traffic to SSH
       ufw:
         state: enabled
+
+    - name: Copy SSH private key from my personal computer
+      become: false
+      copy:
+        src: ~/.ssh/id_rsa
+        dest: /home/{{ whoami.stdout }}/.ssh/id_rsa
+
+    - name: Copy SSH public key from my personal computer
+      become: false
+      copy:
+        src: ~/.ssh/id_rsa.pub
+        dest: /home/{{ whoami.stdout }}/.ssh/id_rsa.pub
 
     - name: Restart SSH service
       service:
