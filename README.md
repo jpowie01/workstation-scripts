@@ -110,6 +110,13 @@ Host workstation
     Port 22
     IdentityFile ~/.ssh/workstation.key
 
+Host workstation_with_x
+    HostName LOCAL_IP_ADDRESS
+    User USERNAME
+    Port 22
+    ForwardX11 yes
+    IdentityFile ~/.ssh/workstation.key
+
 Host workstation_with_mlflow
     HostName LOCAL_IP_ADDRESS
     User USERNAME
@@ -131,6 +138,6 @@ Accessing, copying and viewing multiple files on a remote machine may slow down 
  system through SSH tunnel:
 
 ```bash
-$ sudo mkdir /Volumes/Workstation
-$ sudo sshfs workstation:~ /Volumes/Workstation -o Workstation
+$ sudo mkdir -p /Volumes/Workstation
+$ sudo sshfs workstation:/home/$USER /Volumes/Workstation -o volname=Workstation
 ```
