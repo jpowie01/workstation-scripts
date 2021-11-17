@@ -84,12 +84,14 @@
       copy:
         src: ~/.ssh/id_rsa
         dest: /home/{{ whoami.stdout }}/.ssh/id_rsa
+        mode: 600
 
     - name: Copy SSH public key from my personal computer
       become: false
       copy:
         src: ~/.ssh/id_rsa.pub
         dest: /home/{{ whoami.stdout }}/.ssh/id_rsa.pub
+        mode: 600
 
     - name: Restart SSH service
       service:
