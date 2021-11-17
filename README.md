@@ -141,3 +141,19 @@ Accessing, copying and viewing multiple files on a remote machine may slow down 
 $ sudo mkdir -p /Volumes/Workstation
 $ sudo sshfs workstation:/home/$USER /Volumes/Workstation -o volname=Workstation
 ```
+
+## Tips & Tricks
+
+### RAM Frequency
+
+Although everyone tell you that RAM frequency matters on Ryzen 5xxx, don't take this too much
+ seriously. Many people (including me) have problems with stability of memories clocked using
+ higher frequencies (3600MHz+). To avoid random crashes and restarts, limit your frequency to
+ 3200MHz and wait for BIOS/AGESA updates from AMD and your motherboard manufacturer.
+
+### AMD Core Performance Boost
+
+Do your own benchmarks but in my case, I disabled it completely. It didn't give me any performance
+ boost during models training, while temperatures increased by at least 10 degrees Celsius.
+ Thanks to disabling it, I could turn down my fan speeds reducing noise. I also feel that it
+ might help reducing stability issues.
